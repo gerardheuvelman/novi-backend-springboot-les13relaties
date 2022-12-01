@@ -1,6 +1,9 @@
 package com.example.les13relaties.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "courses")
@@ -15,6 +18,18 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id")    // optioneel
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "lesson")
+    @JsonIgnore
+    private List<Lesson> lessons;
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
 
     public Long getId() {
         return id;
